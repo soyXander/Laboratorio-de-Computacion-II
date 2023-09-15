@@ -10,7 +10,7 @@ class Cafetera:
     def servir(self, cantidad):
         if cantidad > 0 and cantidad <= self.cantidadActual:
             self.cantidadActual -= cantidad
-            print("Se sirvio", str(cantidad) + "cc. de cafe")
+            print(f"Se sirvio {cantidad}cc. de café")
         else:
             print("No se puede servir la cantidad deseada")
 
