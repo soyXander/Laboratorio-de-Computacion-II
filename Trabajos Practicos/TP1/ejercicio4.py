@@ -5,31 +5,31 @@ class Cafetera:
 
     def llenar(self):
         self.cantidadActual = self.capacidadMaxima
-        print("Se lleno la cafetera")
+        return "Se lleno la cafetera"
 
     def servir(self, cantidad):
         if cantidad > 0 and cantidad <= self.cantidadActual:
             self.cantidadActual -= cantidad
-            print(f"Se sirvio {cantidad}cc. de café")
+            return f"Se sirvio {cantidad}cc. de café"
         else:
-            print("No se puede servir la cantidad deseada")
+            return "No se puede servir la cantidad deseada"
 
     def vaciar(self):
         self.cantidadActual = 0
-        print("Se vacio la cafetera")
+        return "Se vacio la cafetera"
 
     def agregar(self, cantidad):
         if cantidad > 0:
             if self.cantidadActual + cantidad <= self.capacidadMaxima:
                 self.cantidadActual += cantidad
-                print(f"Se agrego {cantidad}cc. de cafe a la cafetera")
+                return f"Se agrego {cantidad}cc. de cafe a la cafetera"
             else:
-                print("La cantidad a agregar superar a la capacidad maxima")
+                return "La cantidad a agregar superar a la capacidad maxima"
         else:
-            print("No se puede agregar una cantidad negativa")
+            return "No se puede agregar una cantidad negativa"
 
 caf = Cafetera()
-caf.llenar()
-caf.servir(100)
-caf.vaciar()
-caf.agregar(300)
+print(caf.llenar())
+print(caf.servir(100))
+print(caf.vaciar())
+print(caf.agregar(300))
