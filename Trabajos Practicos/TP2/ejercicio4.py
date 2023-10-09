@@ -78,13 +78,13 @@ class Auto:
 
     def __str__(self):
         motor = f"Motor: Nivel de aceite: {self.motor.nivel_aceite}%, Temperatura: {self.motor.temperatura}, Encendido: {'Si' if self.motor.encendido else 'No'}"
-        ruedas = "\n".join([f"Rueda {rueda.rodado} - Presión: {rueda.presion}" for rueda in self.ruedas])
+        ruedas = "\n".join([f"Rodado {rueda.rodado} - Presión: {rueda.presion}" for rueda in self.ruedas])
         puertas = "\n".join([f"Puerta {puerta.color} - Polarizada: {'Si' if puerta.ventana.polarizado else 'No'}" for puerta in self.puertas])
 
         return f"=== Info del Auto ===\n{motor}\n\nRuedas:\n{ruedas}\n\nPuertas:\n{puertas}\n"
 
 motor = Motor()
-ruedas = [Rueda("14"), Rueda("14"), Rueda("14"), Rueda("14")]
+ruedas = [Rueda(14), Rueda(14), Rueda(14), Rueda(14)]
 puertas = [Puerta("Verde", Ventana(True)), Puerta("Azul", Ventana(False))]
 
 auto = Auto(motor, ruedas, puertas)

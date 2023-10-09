@@ -23,19 +23,18 @@ class Peaje:
         self.nombre = nombre
         self.departamento = departamento
         self.vehiculos = []
-        self.total_peaje = 0
 
     def agregar_vehiculo(self, vehiculo):
         self.vehiculos.append(vehiculo)
-        self.total_peaje += vehiculo.valor_peaje
 
     def calcular_total_peaje(self):
-        print(f"Total de peajes recolectados en {peaje1.nombre}, {peaje1.departamento}: ${self.total_peaje}")
+        total_peaje = sum(v.valor_peaje for v in self.vehiculos)
+        print(f"Total de peajes recolectados en {self.nombre}, {self.departamento}: ${total_peaje}")
 
     def cantidad_vehiculos(self):
-        print(f"Cantidad de vehiculos en {peaje1.nombre}: {len(self.vehiculos)}")
+        print(f"Cantidad de vehiculos en {self.nombre}: {len(self.vehiculos)}")
 
-peaje1 = Peaje("Peaje 1", "Dpto 1")
+peaje1 = Peaje("Hudson", "Berazategui")
 
 moto1 = Moto("A123BCD")
 auto1 = Auto("AA321BC")

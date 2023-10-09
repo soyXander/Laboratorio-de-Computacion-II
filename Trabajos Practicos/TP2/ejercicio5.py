@@ -20,7 +20,7 @@ class Album:
         return f"El album contiene {len(self.canciones)} canciones"
     
     def eliminar_cancion(self, trackId):
-        if trackId > 0:
+        if trackId > 0 and trackId < len(self.canciones):
             del self.canciones[trackId - 1]
         else:
             print("TrackID desconocido")
