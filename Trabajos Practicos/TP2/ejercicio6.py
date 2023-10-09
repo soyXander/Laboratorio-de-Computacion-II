@@ -21,7 +21,10 @@ class Biblioteca:
         return f"Cantidad de libros en la biblioteca: {len(self.libros)}"
     
     def eliminar_libro(self, index):
-        del self.libros[index]
+        if index >= 0 and index < len(self.libros):
+            del self.libros[index]
+        else:
+            print("Indice fuera de rango")
         
     def __str__(self):
         info = [f"=== Libros en la Biblioteca ==="]
@@ -30,8 +33,8 @@ class Biblioteca:
         return '\n'.join(info)
     
 libro1 = Libro("Fdas", "Autor 1", 56)
-libro2 = Libro("Badas 2", "Autor 2", 56)
-libro3 = Libro("Asds 3", "Autor 3", 56)
+libro2 = Libro("Badas 2", "Autor 2", 77)
+libro3 = Libro("Asds 3", "Autor 3", 145)
 
 biblioteca = Biblioteca()
 biblioteca.agregar_libro(libro1)
@@ -40,4 +43,6 @@ biblioteca.agregar_libro(libro3)
 print(biblioteca.numero_libros())
 print(biblioteca)
 biblioteca.ordenar_lista_por_titulo()
+print(biblioteca)
+biblioteca.eliminar_libro(1)
 print(biblioteca)

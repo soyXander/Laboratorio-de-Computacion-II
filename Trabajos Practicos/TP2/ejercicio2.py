@@ -52,7 +52,7 @@ class CasaUrbana(Casa):
         self.tiene_pileta = tiene_pileta
     
     def __str__(self):
-                return f'''{super().__str__()}
+        return f'''{super().__str__()}
 Tiene pileta: {"Si" if self.tiene_pileta else "No"}'''
 
 class DepartamentoFamiliar(Departamento):
@@ -61,7 +61,7 @@ class DepartamentoFamiliar(Departamento):
         self.cantidad_familiares = cantidad_familiares
     
     def __str__(self):
-                return f'''{super().__str__()}
+        return f'''{super().__str__()}
 Cantidad de familiares: {self.cantidad_familiares}'''
 
 class DepartamentoEstudio(Departamento):
@@ -70,6 +70,22 @@ class DepartamentoEstudio(Departamento):
          self.cantidad_empleados = cantidad_empleados
          
     def __str__(self):
-                return f'''{super().__str__()}
+        return f'''{super().__str__()}
 Cantidad de empleados: {self.cantidad_empleados}'''
     
+casar = CasaRural(1, 5, 1500, "RN 75", 25000000, 1, 2.5, 1200)
+print("== Casa Rural ==")
+print(casar)
+print()
+print("== Casa Urbana ==")
+casau = CasaUrbana(2, 5, 300, "Av Siempre Viva, 321", 3500000, 2, True)
+print(casau)
+print()
+
+print("== Depto Familiar ==")
+deptof = DepartamentoFamiliar(3, 4, 150, "Av Porahi, 101", 2200000, 15, 4)
+print(deptof)
+print()
+print("== Depto Estudio ==")
+deptoe = DepartamentoEstudio(4, 2, 80, "Av Porahi, 202", 2500000, 2, 10)
+print(deptoe)
