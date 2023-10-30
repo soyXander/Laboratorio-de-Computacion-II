@@ -9,11 +9,11 @@ class MiVentana(QMainWindow):
         self.btnMostrar.clicked.connect(self.on_mostrar)
     
     def on_mostrar(self):
-        nomCompleto = f"{self.fldApellido.text()}, {self.fldNombre.text()}"
+        nomCompleto = f"Nombre completo: {self.fldApellido.text()}, {self.fldNombre.text()}"
         self.nombreCompleto.setText(nomCompleto)
 
 app = QApplication([])
-windows = MiVentana()
-windows.show()
+window = MiVentana()
 
+window.show()
 app.exec()

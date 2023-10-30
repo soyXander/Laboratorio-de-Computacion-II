@@ -28,7 +28,7 @@ class MiVentana(QMainWindow):
         self.btnArriba.setEnabled(True)
 
 app = QApplication([])
-windows = MiVentana()
-windows.show()
+window = MiVentana()
 
+window.show()
 app.exec()

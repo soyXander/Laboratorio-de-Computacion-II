@@ -9,10 +9,13 @@ class MiVentana(QMainWindow):
         self.btnCambiar.clicked.connect(self.on_cambiar_saludo)
     
     def on_cambiar_saludo(self):
-        self.mensaje.setText("Chau Mundo!")
+        if self.mensaje.text() == "Hola Mundo!":
+            self.mensaje.setText("Chau Mundo!")
+        else:
+            self.mensaje.setText("Hola Mundo!")
 
 app = QApplication([])
-windows = MiVentana()
-windows.show()
+window = MiVentana()
 
+window.show()
 app.exec()

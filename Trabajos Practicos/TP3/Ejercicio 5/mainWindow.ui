@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>207</width>
-    <height>289</height>
+    <width>271</width>
+    <height>215</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,29 +28,50 @@
      <number>15</number>
     </property>
     <item>
-     <widget class="QGroupBox" name="tipoLomito">
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Temperatura:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="tempIn"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
       <property name="title">
-       <string>Elija tipo de lomito:</string>
+       <string>Convertir a:</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QRadioButton" name="lomitoCarne">
+        <widget class="QRadioButton" name="cenKel">
          <property name="text">
-          <string>Carne - $500</string>
+          <string>Centigrados a Kelvin</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="lomitoPollo">
+        <widget class="QRadioButton" name="kelCen">
          <property name="text">
-          <string>Pollo - $450</string>
+          <string>Kelvin a Centigrados</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="lomitoCerdo">
+        <widget class="QRadioButton" name="cenFah">
          <property name="text">
-          <string>Cerdo - $400</string>
+          <string>Centigrados a Fahrenheit</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="fahCen">
+         <property name="text">
+          <string>Fahrenheit a Centigrados</string>
          </property>
         </widget>
        </item>
@@ -58,46 +79,9 @@
      </widget>
     </item>
     <item>
-     <widget class="QGroupBox" name="extras">
-      <property name="title">
-       <string>Elija extras:</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <widget class="QCheckBox" name="huevoFrito">
-         <property name="text">
-          <string>Huevo frito - $100</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="papasFritas">
-         <property name="text">
-          <string>Papas fritas - $200</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="gaseosa">
-         <property name="text">
-          <string>Gaseosa - $250</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="delivery">
-         <property name="text">
-          <string>Delivery - $100</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="precioTotal">
+     <widget class="QLabel" name="labelTemp">
       <property name="text">
-       <string>Precio total:</string>
+       <string>Temperatura:</string>
       </property>
      </widget>
     </item>
