@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
+    <width>705</width>
     <height>420</height>
    </rect>
   </property>
@@ -63,12 +63,18 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="nombreInput"/>
+        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="labelApellido">
           <property name="text">
            <string>Apellido</string>
           </property>
          </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="apellidoInput"/>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="labelEmail">
@@ -77,35 +83,51 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="nombreInput"/>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="apellidoInput"/>
-        </item>
         <item row="2" column="1">
          <widget class="QLineEdit" name="emailInput"/>
         </item>
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="btnGuardar">
-        <property name="text">
-         <string>Guardar</string>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
         </property>
-        <property name="visible">
-          <bool>false</bool>
-         </property>
-       </widget>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btnCancelar">
-        <property name="text">
-         <string>Cancelar</string>
-        </property>
+       <widget class="QWidget" name="wgBotones" native="true">
         <property name="visible">
-          <bool>false</bool>
-         </property>
+         <bool>false</bool>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="1">
+          <widget class="QPushButton" name="btnGuardar">
+           <property name="visible">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Guardar</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QPushButton" name="btnCancelar">
+           <property name="visible">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Cancelar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>

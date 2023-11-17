@@ -21,10 +21,7 @@ class MiVentana(QMainWindow):
         self.btnGuardar.clicked.connect(self.on_guardar)
         self.btnCancelar.clicked.connect(self.on_cancelar)
 
-    def on_agregar(self):
-        if self.btnGuardar.isVisible():
-            self.showBtns()
-        
+    def on_agregar(self): 
         nombre = self.nombreInput.text()
         apellido = self.apellidoInput.text()
         email = self.emailInput.text()
@@ -42,15 +39,10 @@ class MiVentana(QMainWindow):
             
     def on_editar(self):
         self.item = self.tabla.currentItem()
-        
         if not self.item:
             return
         
-        self.btnEditar.setEnabled(False)
-        self.btnAgregar.setEnabled(False)
-        self.btnEliminar.setEnabled(False)
-        self.btnGuardar.setVisible(True)
-        self.btnCancelar.setVisible(True)
+        self.showBtns()
         
         fila = self.item.row()
         nombre = self.tabla.item(fila, 0).text()
@@ -62,14 +54,10 @@ class MiVentana(QMainWindow):
         self.emailInput.setText(email)
 
     def on_eliminar(self):
-        if self.btnGuardar.isVisible():
-            self.showBtns()
-        
         item = self.tabla.currentItem()
-        
         if not item:
             return
-            
+        
         dialog = QMessageBox()
         dialog.setWindowTitle("Confirmar eliminación")
         dialog.setIcon(QMessageBox.Icon.Warning)
@@ -95,7 +83,6 @@ class MiVentana(QMainWindow):
             email = self.emailInput.text()
 
             if len(nombre) > 0 or len(apellido) > 0 or len(email) > 0:
-                        
                 fila = self.item.row()
                 self.tabla.setItem(fila, 0, QTableWidgetItem(nombre))
                 self.tabla.setItem(fila, 1, QTableWidgetItem(apellido))
@@ -114,19 +101,13 @@ class MiVentana(QMainWindow):
         self.emailInput.setText("")
 
     def showBtns(self):
-        if self.btnGuardar.isVisible():
-            self.btnGuardar.setVisible(False)
-            self.btnCancelar.setVisible(False)
-            self.btnAgregar.setEnabled(True)
-            self.btnEditar.setEnabled(True)
-            self.btnEliminar.setEnabled(True)
-        else:
-            self.btnGuardar.setVisible(True)
-            self.btnCancelar.setVisible(True)
-            self.btnAgregar.setEnabled(False)
-            self.btnEditar.setEnabled(False)
-            self.btnEliminar.setEnabled(False)
-            
+        self.wgBotones.setVisible(not self.wgBotones.isVisible())
+        self.btnGuardar.setVisible(self.wgBotones.isVisible())
+        self.btnCancelar.setVisible(self.wgBotones.isVisible())
+        self.btnAgregar.setEnabled(not self.wgBotones.isVisible())
+        self.btnEditar.setEnabled(not self.wgBotones.isVisible())
+        self.btnEliminar.setEnabled(not self.wgBotones.isVisible())
+
 app = QApplication([])
 window = MiVentana()
 
