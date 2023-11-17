@@ -1,6 +1,6 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox
+from PyQt6.QtWidgets import QApplication, QFileDialog, QMainWindow, QTableWidgetItem, QMessageBox
 from PyQt6 import uic
-import os
+import csv, os
 
 class Persona():
   def __init__(self, nombre, apellido, email):
@@ -9,7 +9,7 @@ class Persona():
     self.email = email
   
   def __str__(self):
-    return f'{self.apellido}, {self.nombre}, {self.email}'
+    return f"{self.apellido}, {self.nombre}, {self.email}"
 
 class MiVentana(QMainWindow):
     def __init__(self):
@@ -20,10 +20,13 @@ class MiVentana(QMainWindow):
         self.btnEliminar.clicked.connect(self.on_eliminar)
         self.btnGuardar.clicked.connect(self.on_guardar)
         self.btnCancelar.clicked.connect(self.on_cancelar)
+        self.btnCSV.clicked.connect(self.on_csv)
+        self.btnCargarCSV.clicked.connect(self.on_cargarCSV)
+        self.btnDescargarCSV.clicked.connect(self.on_descargarCSV)
 
     def on_agregar(self):
         if self.btnGuardar.isVisible():
-            self.showBtns()
+            self.showBtns(1)
         
         nombre = self.nombreInput.text()
         apellido = self.apellidoInput.text()
@@ -46,11 +49,7 @@ class MiVentana(QMainWindow):
         if not self.item:
             return
         
-        self.btnEditar.setEnabled(False)
-        self.btnAgregar.setEnabled(False)
-        self.btnEliminar.setEnabled(False)
-        self.btnGuardar.setVisible(True)
-        self.btnCancelar.setVisible(True)
+        self.showBtns(1)
         
         fila = self.item.row()
         nombre = self.tabla.item(fila, 0).text()
@@ -63,7 +62,7 @@ class MiVentana(QMainWindow):
 
     def on_eliminar(self):
         if self.btnGuardar.isVisible():
-            self.showBtns()
+            self.showBtns(2)
         
         item = self.tabla.currentItem()
         
@@ -74,7 +73,7 @@ class MiVentana(QMainWindow):
         dialog.setWindowTitle("Confirmar eliminación")
         dialog.setIcon(QMessageBox.Icon.Warning)
         dialog.setText("¿Desea eliminar la persona? Este proceso no se puede deshacer")  
-        dialog.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)      
+        dialog.setStandardButtons(QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
         
         if dialog.exec() == QMessageBox.StandardButton.Yes:
             fila = item.row()
@@ -94,42 +93,90 @@ class MiVentana(QMainWindow):
             apellido = self.apellidoInput.text()
             email = self.emailInput.text()
 
-            if len(nombre) > 0 or len(apellido) > 0 or len(email) > 0:
-                        
+            persona = Persona(nombre, apellido, email)
+            
+            if len(persona.nombre) > 0 or len(persona.apellido) > 0 or len(persona.email) > 0:
                 fila = self.item.row()
-                self.tabla.setItem(fila, 0, QTableWidgetItem(nombre))
-                self.tabla.setItem(fila, 1, QTableWidgetItem(apellido))
-                self.tabla.setItem(fila, 2, QTableWidgetItem(email))
+                self.tabla.setItem(fila, 0, QTableWidgetItem(persona.nombre))
+                self.tabla.setItem(fila, 1, QTableWidgetItem(persona.apellido))
+                self.tabla.setItem(fila, 2, QTableWidgetItem(persona.email))
 
-                self.showBtns()
-                self.limpiarCampos()
+            self.showBtns(1)
+            self.limpiarCampos()
         
     def on_cancelar(self):
-        self.showBtns()
+        self.showBtns(1)
         self.limpiarCampos()
 
+    def on_csv(self):
+        self.showBtns(2)
+
     def on_cargarCSV(self):
-        pass
+        archivoSubido, ok = QFileDialog.getOpenFileName(
+            self,
+            "Cargar archivo CSV",
+            os.path.dirname(__file__),
+            "Archivo CSV (*.csv)"
+        )
+        if ok:
+            with open(archivoSubido) as archivoSubido:
+                filas = csv.reader(archivoSubido, delimiter=",", quotechar="\"")
+                for filaCSV in filas:
+                    persona = Persona(filaCSV[0], filaCSV[1], filaCSV[2])
+                    
+                    if len(persona.nombre) > 0 or len(persona.apellido) > 0 or len(persona.email) > 0:
+                        fila = self.tabla.rowCount()
+                        self.tabla.insertRow(fila)
+                        self.tabla.setItem(fila, 0, QTableWidgetItem(persona.nombre))
+                        self.tabla.setItem(fila, 1, QTableWidgetItem(persona.apellido))
+                        self.tabla.setItem(fila, 2, QTableWidgetItem(persona.email))
+            archivoSubido.close()
+            self.showBtns(2)
+
+    def on_descargarCSV(self):
+        if self.tabla.rowCount() > 0:
+            archivoDescargado, ok = QFileDialog.getSaveFileName(
+                self,
+                "Guardar archivo CSV",
+                os.path.dirname(__file__),
+                "Archivo CSV (*.csv)"
+            )
+            if ok:
+                with open(archivoDescargado, "w", newline="") as archivoDescargado:
+                    escritor = csv.writer(archivoDescargado, delimiter=",", quotechar="\"", quoting=csv.QUOTE_MINIMAL)
+                    for fila in range(self.tabla.rowCount()):
+                        nombre = self.tabla.item(fila, 0).text()
+                        apellido = self.tabla.item(fila, 1).text()
+                        email = self.tabla.item(fila, 2).text()
+                        escritor.writerow([nombre, apellido, email])
+                archivoDescargado.close()
+                self.showBtns(2)
 
     def limpiarCampos(self):
         self.nombreInput.setText("")
         self.apellidoInput.setText("")
         self.emailInput.setText("")
 
-    def showBtns(self):
-        if self.btnGuardar.isVisible():
-            self.btnGuardar.setVisible(False)
-            self.btnCancelar.setVisible(False)
-            self.btnAgregar.setEnabled(True)
-            self.btnEditar.setEnabled(True)
-            self.btnEliminar.setEnabled(True)
-        else:
-            self.btnGuardar.setVisible(True)
-            self.btnCancelar.setVisible(True)
-            self.btnAgregar.setEnabled(False)
-            self.btnEditar.setEnabled(False)
-            self.btnEliminar.setEnabled(False)
-            
+    def showBtns(self, opc):
+        if opc == 1:
+            self.wgBotones.setVisible(not self.wgBotones.isVisible())
+            self.btnGuardar.setVisible(self.wgBotones.isVisible())
+            self.btnCancelar.setVisible(self.wgBotones.isVisible())
+            self.btnAgregar.setEnabled(not self.wgBotones.isVisible())
+            self.btnEditar.setEnabled(not self.wgBotones.isVisible())
+            self.btnEliminar.setEnabled(not self.wgBotones.isVisible())
+            self.btnCSV.setEnabled(not self.wgBotones.isVisible())
+        elif opc == 2:
+            self.wgBotones.setVisible(not self.wgBotones.isVisible())
+            self.nombreInput.setEnabled(not self.wgBotones.isVisible())
+            self.apellidoInput.setEnabled(not self.wgBotones.isVisible())
+            self.emailInput.setEnabled(not self.wgBotones.isVisible())
+            self.btnCargarCSV.setVisible(self.wgBotones.isVisible())
+            self.btnDescargarCSV.setVisible(self.wgBotones.isVisible())
+            self.btnAgregar.setEnabled(not self.wgBotones.isVisible())
+            self.btnEditar.setEnabled(not self.wgBotones.isVisible())
+            self.btnEliminar.setEnabled(not self.wgBotones.isVisible())
+
 app = QApplication([])
 window = MiVentana()
 

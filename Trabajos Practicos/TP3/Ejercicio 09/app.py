@@ -9,7 +9,7 @@ class Persona():
     self.email = email
   
   def __str__(self):
-    return f'{self.apellido}, {self.nombre}, {self.email}'
+    return f"{self.apellido}, {self.nombre}, {self.email}"
 
 class MiVentana(QMainWindow):
     def __init__(self):
@@ -21,7 +21,7 @@ class MiVentana(QMainWindow):
         self.btnGuardar.clicked.connect(self.on_guardar)
         self.btnCancelar.clicked.connect(self.on_cancelar)
 
-    def on_agregar(self): 
+    def on_agregar(self):
         nombre = self.nombreInput.text()
         apellido = self.apellidoInput.text()
         email = self.emailInput.text()
@@ -39,6 +39,7 @@ class MiVentana(QMainWindow):
             
     def on_editar(self):
         self.item = self.tabla.currentItem()
+        
         if not self.item:
             return
         
@@ -55,6 +56,7 @@ class MiVentana(QMainWindow):
 
     def on_eliminar(self):
         item = self.tabla.currentItem()
+        
         if not item:
             return
         
@@ -82,14 +84,16 @@ class MiVentana(QMainWindow):
             apellido = self.apellidoInput.text()
             email = self.emailInput.text()
 
-            if len(nombre) > 0 or len(apellido) > 0 or len(email) > 0:
+            persona = Persona(nombre, apellido, email)
+            
+            if len(persona.nombre) > 0 or len(persona.apellido) > 0 or len(persona.email) > 0:
                 fila = self.item.row()
-                self.tabla.setItem(fila, 0, QTableWidgetItem(nombre))
-                self.tabla.setItem(fila, 1, QTableWidgetItem(apellido))
-                self.tabla.setItem(fila, 2, QTableWidgetItem(email))
+                self.tabla.setItem(fila, 0, QTableWidgetItem(persona.nombre))
+                self.tabla.setItem(fila, 1, QTableWidgetItem(persona.apellido))
+                self.tabla.setItem(fila, 2, QTableWidgetItem(persona.email))
 
-                self.showBtns()
-                self.limpiarCampos()
+            self.showBtns()
+            self.limpiarCampos()
         
     def on_cancelar(self):
         self.showBtns()
